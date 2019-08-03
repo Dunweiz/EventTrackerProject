@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-	<persistence-unit name="StuffPU">
+	<persistence-unit name="TravelPU">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
     
@@ -13,10 +13,10 @@
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/mydb?useSSL=false" />
-			<property name="javax.persistence.jdbc.user" value="user" />
+				value="jdbc:mysql://localhost:3306/traveldb?useSSL=false" />
+			<property name="javax.persistence.jdbc.user" value="travel" />
 			<property name="javax.persistence.jdbc.password"
-				value="user" />
+				value="travel" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 
