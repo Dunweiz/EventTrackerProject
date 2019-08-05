@@ -6,6 +6,8 @@ Distillery week 13-15
 ### Overview
 This is a REST Server that does CRUD on the Travel database.
 
+## Instructions For Link
+http://3.13.197.241:8080/TravelTracker/api/travel
 
 #### REST API Endpoints
 
