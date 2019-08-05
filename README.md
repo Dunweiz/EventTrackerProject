@@ -11,12 +11,12 @@ This is a REST Server that does CRUD on the Travel database.
 
   | HTTP Verb | Resource URI | Action |
   |-----------|--------------|--------|
-* | Get | /api/travel | Retrieve all location names |
-* | Get | /api/travel/{id} | Retrieve location by id |
-* | POST | /api/travel | Make a travel |
-* | PUT | /api/travel/{id} | Replace an existing travel |
-* | DELETE | /api/travel/{id} | Delete an existing travel |
-* | GET | /api/travel/{id} | Retrieve a travel based on Vehicle name |
+  | Get | /api/travel | Retrieve all location names |
+  | Get | /api/travel/{id} | Retrieve location by id |
+  | POST | /api/travel | Make a travel |
+  | PUT | /api/travel/{id} | Replace an existing travel |
+  | DELETE | /api/travel/{id} | Delete an existing travel |
+  | GET | /api/travel/{id} | Retrieve a travel based on Vehicle name |
 
 ## Technologies Used
 * Spring Rest

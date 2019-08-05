@@ -47,6 +47,7 @@ START TRANSACTION;
 USE `Traveldb`;
 INSERT INTO `travel` (`id`, `name`, `distance`, `description`, `vehicle`) VALUES (1, 'Fort Worth ,Texas', 778.56, 'The drive was very nice, took an alternate route instead of the big highways', 'Honda Civic');
 INSERT INTO `travel` (`id`, `name`, `distance`, `description`, `vehicle`) VALUES (2, 'West Palm Beach, Florida', 1532.45, 'The drive was very long. Took the major high ways to reach my destination', 'Toyota Camry');
+INSERT INTO `travel` (`id`, `name`, `distance`, `description`, `vehicle`) VALUES (3, 'Miami', 1578.2, 'Terriable traffic that day took alot long than usual', 'Honda Civic');
 
 COMMIT;
 
