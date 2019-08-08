@@ -48,6 +48,7 @@ function getTravel(travelId) {
 function displayTravel(travel){
 	clearPage();
 	
+	//Display Travel information
 	let div = document.getElementById('travelData');
 	  let h2 = document.createElement('h2');
 	  let ul = document.createElement('ul');
@@ -68,6 +69,7 @@ function displayTravel(travel){
 
 		div.appendChild(ul);
 		
+		//Create a delete button
 		let form = document.createElement('form');
 		form.name = 'deleteForm';
 		form.id = 'deleteForm';
@@ -84,6 +86,107 @@ function displayTravel(travel){
 			console.log('I AM HERE')
 			deleteTravel(travel.id);
 		});
+		
+		//break row and insert an Update header
+		let br = document.createElement('br');
+		let header2 = document.createElement('h2');
+		header2.textContent = 'Update Travel';
+		div.appendChild(br);
+		div.appendChild(header2);
+		
+		//break row
+		let updateForm = document.createElement('form');
+		updateForm.name = 'updateForm';
+		updateForm.id = 'updateForm';
+		div.appendChild(updateForm);
+		
+		//create input box for name of location
+		let inputName = document.createElement('input');
+		inputName.type = 'text';
+		inputName.name = 'name';
+		inputName.placeholder = 'Location name';
+		updateForm.appendChild(inputName);
+		
+		//break row
+		let br2 = document.createElement('br');
+		updateForm.appendChild(br2);
+		
+		//create input box for travel description
+		let inputDesc = document.createElement('input');
+		inputDesc.type = 'text';
+		inputDesc.name = 'description';
+		inputDesc.placeholder = 'Description of the travel';
+		updateForm.appendChild(inputDesc);
+		
+		//break row
+		let br3 = document.createElement('br');
+		updateForm.appendChild(br3);
+		
+		//input for Travel Distance
+		let inputDistance = document.createElement('input');
+		inputDistance.type = 'number';
+		inputDistance.name = 'distance';
+		inputDistance.placeholder = 'Distance in Miles';
+		updateForm.appendChild(inputDistance);
+		
+		//break row
+		let br4 = document.createElement('br');
+		updateForm.appendChild(br4);
+		
+		//create input box for vehicle used
+		let selectVehicle = document.createElement('select');
+		selectVehicle.name = 'vehicle'
+		
+		//select for honda civic
+		let civic = document.createElement('option');
+		civic.value = 'Honda Civic';
+		civic.textContent = 'Honda Civic';
+		selectVehicle.appendChild(civic);
+		
+		//select for honda accord
+		let accord = document.createElement('option');
+		accord.value = 'Honda Accord';
+		accord.textContent = 'Honda Civic';
+		selectVehicle.appendChild(accord);
+		
+		//select for Toyota Camry
+		let camry = document.createElement('option');
+		camry.value = 'Toyota Camry';
+		camry.textContent = 'Toyota Camry';
+		selectVehicle.appendChild(camry);
+		
+		//select for Ford Mustang
+		let mustang = document.createElement('option');
+		mustang.value = 'Ford Mustang';
+		mustang.textContent = 'Ford Mustang';
+		selectVehicle.appendChild(mustang);
+		
+		//select for Ford F150
+		let f150 = document.createElement('option');
+		f150.value = 'Ford F150';
+		f150.textContent = 'Ford F150';
+		selectVehicle.appendChild(f150);
+		
+		//Add the select to form
+		updateForm.appendChild(selectVehicle);
+		
+		//break row
+		let br5 = document.createElement('br');
+		updateForm.appendChild(br5);
+		
+		//Create an update button
+		let updateInput = document.createElement('input');
+		updateInput.type = 'submit';
+		updateInput.name = 'submit';
+		updateInput.value = 'Update Travel';
+		updateForm.appendChild(updateInput);
+		
+		document.updateForm.addEventListener('submit', function(e){
+			e.preventDefault();
+			updateTravel(travel);
+			clearPage();
+		});
+		
 }
 function deleteTravel(travelId){
 	var xhr = new XMLHttpRequest();
@@ -177,4 +280,32 @@ function createTravel(e){
 	};
 	xhr.send(JSON.stringify(newTravel));
 }
-
+function updateTravel(travel){
+	var xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/travel/' + travel.id, true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		let travel = document.getElementById('travelData');
+		let header2 = document.createElement('h2');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			var obj = JSON.parse(xhr.responseText);
+			displayTravel(obj);
+		}
+		
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			header2.textContent = 'Travel Not Found';
+			travel.appendChild(header2);
+		}
+	};
+	let updateForm = document.getElementById('updateForm');
+	let newTravel = {
+		id:	travel.id,
+	    name: updateForm.name.value,
+	    desc: updateForm.description.value,
+	    vehicle: updateForm.vehicle.value,
+	    distance: updateForm.distance.value
+	   
+	};
+	xhr.send(JSON.stringify(newTravel));
+	displayTravel(newTravel);
+}
