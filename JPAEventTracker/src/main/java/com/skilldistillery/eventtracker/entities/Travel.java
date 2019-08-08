@@ -15,7 +15,7 @@ public class Travel {
 
 	private String name;
 
-	private String distance;
+	private double distance;
 	
 	@Column(name="description")
 	private String desc;
@@ -38,11 +38,13 @@ public class Travel {
 		this.name = name;
 	}
 
-	public String getDistance() {
+	
+
+	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(String distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 
@@ -88,7 +90,7 @@ public class Travel {
 		super();
 	}
 
-	public Travel(int id, String name, String distance, String desc, String vehicle) {
+	public Travel(int id, String name, double distance, String desc, String vehicle) {
 		super();
 		this.id = id;
 		this.name = name;

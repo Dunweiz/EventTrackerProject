@@ -1,0 +1,180 @@
+window.addEventListener('load', function(e) {
+	clearPage();
+	init();
+});
+
+document.allForm.addEventListener('submit', function(e){
+	clearPage();	
+	displayAllTravel(e);
+});
+
+function clearPage(){
+	let div = document.getElementById('travelData');
+	while(div.firstElementChild){
+		div.removeChild(div.firstElementChild);
+	}
+}
+
+function init() {
+	document.travelForm.lookup.addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log('Button clicked')
+		var travelId = document.travelForm.travelId.value;
+		console.log(travelId);
+		if (!isNaN(travelId) && travelId > 0) {
+			getTravel(travelId);
+
+		}
+	});
+}
+function getTravel(travelId) {
+	clearPage();
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/travel/' + travelId, true);
+	xhr.onreadystatechange = function() {
+		let travel = document.getElementById('travelData');
+		let header2 = document.createElement('h2');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			var obj = JSON.parse(xhr.responseText);
+			displayTravel(obj);
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			header2.textContent = 'Travel Not Found';
+			travel.appendChild(header2);
+		}
+	};
+	xhr.send(null);
+}
+function displayTravel(travel){
+	clearPage();
+	
+	let div = document.getElementById('travelData');
+	  let h2 = document.createElement('h2');
+	  let ul = document.createElement('ul');
+	  let li = document.createElement('li');
+	  let li2 = document.createElement('li');
+	  let block = document.createElement('blockquote');
+	  h2.textContent = travel.name;
+	  div.appendChild(h2);
+	  
+	  li.textContent = travel.distance;
+		ul.appendChild(li);
+
+		li2.textContent = travel.vehicle;
+		ul.appendChild(li2);
+
+		block.textContent = travel.desc;
+		div.appendChild(block);
+
+		div.appendChild(ul);
+		
+		let form = document.createElement('form');
+		form.name = 'deleteForm';
+		form.id = 'deleteForm';
+		let input = document.createElement('input');
+		input.type = 'submit';
+		input.name = 'submit';
+		input.value = 'Delete Travel';
+		div.appendChild(form);
+		form.appendChild(input);
+		
+		document.deleteForm.addEventListener('submit', function(e){
+			clearPage();
+			e.preventDefault();
+			console.log('I AM HERE')
+			deleteTravel(travel.id);
+		});
+}
+function deleteTravel(travelId){
+	var xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/travel/' + travelId, true);
+	xhr.onreadystatechange = function() {
+		let travel = document.getElementById('travelData');
+		let header2 = document.createElement('h2');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			header2.textContent = 'Travel Deleted';
+			travel.appendChild(header2);	
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			header2.textContent = 'Travel Not Found';
+			travel.appendChild(header2);
+		}
+	};
+	xhr.send(null);
+	
+}
+function displayAllTravel(e) {
+	e.preventDefault();
+	var xhr = new XMLHttpRequest();
+
+	xhr.open('GET', 'api/travel', true);
+
+	xhr.onreadystatechange = function() {
+		let travel = document.getElementById('travelData');
+		let header2 = document.createElement('h2');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			var obj = JSON.parse(xhr.responseText);
+			obj.forEach(function(val, index, array) {
+				let header = document.createElement('h3');
+				let ul = document.createElement('ul');
+				let li = document.createElement('li');
+				let li2 = document.createElement('li');
+				let block = document.createElement('blockquote');
+				
+				header.textContent = val.name;
+				travel.appendChild(header);
+
+				li.textContent = val.distance;
+				ul.appendChild(li);
+
+				li2.textContent = val.vehicle;
+				ul.appendChild(li2);
+
+				block.textContent = val.desc;
+				travel.appendChild(block);
+
+				travel.appendChild(ul);
+				
+				header.addEventListener('click', function(){
+					clearPage();
+					getTravel(val.id);	
+				});
+			});
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			header2.textContent = 'Film Not Found';
+			travel.appendChild(header2);
+		}
+
+	};
+	xhr.send(null);
+}
+document.addForm.addEventListener('submit', createTravel);
+function createTravel(e){
+	e.preventDefault();
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/travel', true);
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		let travel = document.getElementById('travelData');
+		let header2 = document.createElement('h2');
+		if (xhr.readyState === 4 && xhr.status < 400) {
+			var obj = JSON.parse(xhr.responseText);
+			displayTravel(obj);
+		}
+		if (xhr.readyState === 4 && xhr.status >= 400) {
+			header2.textContent = 'Travel Not Found';
+			travel.appendChild(header2);
+		}
+	};
+	let form = document.addForm;
+	let newTravel = {
+	    name: form.name.value,
+	    desc: form.desc.value,
+	    vehicle: form.vehicle.value,
+	    distance: form.distance.value
+	   
+	};
+	xhr.send(JSON.stringify(newTravel));
+}
+

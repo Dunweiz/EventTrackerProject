@@ -39,6 +39,7 @@ public class TestController {
 	
 	@PostMapping("travel")
 	public Travel createTravel(@RequestBody Travel travel) {
+		System.out.println(travel);
 		return svc.createTravel(travel);
 	}
 	

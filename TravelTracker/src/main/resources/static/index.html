@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> Travel Log </title>
+</head>
+<body>
+  <h1>Welcome To Travel Logs</h1>
+
+  <form name="travelForm">
+    <input type="number" name="travelId">
+    <button name="lookup">Get Travel by Id</button>
+  </form>
+  <div id="output">
+    <div id="travelData"></div>
+  </div>
+  <hr>
+  <form name ="allForm">
+  <input type="submit" name="submit" value="DisplayAllTravel"/>
+  </form>
+  <hr>
+	<form name="addForm">
+	<input type="text" name="name" placeholder="Location name">
+	<br>
+	<input type="number" name="distance" placeholder="Distance">
+	<br>
+	<input type="text" name="desc" placeholder="Description">
+	<br>
+	<select name="vehicle">
+	<option value="Honda Civic">Honda Civic</option>
+	<option value="Honda Accord">Honda Accord</option>
+	<option value="Toyota Camry">Toyota Camry</option>
+	<option value="Ford Mustang">Ford Mustang</option>
+	<option value="Ford F150">Ford F150</option>
+	</select> 
+	<br>
+	<input type="submit" name="submit" value="Add Travel"/> 
+	</form>
+	
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
