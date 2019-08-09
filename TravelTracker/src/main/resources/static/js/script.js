@@ -208,6 +208,7 @@ function deleteTravel(travelId){
 }
 function displayAllTravel(e) {
 	e.preventDefault();
+	let total = 0;
 	var xhr = new XMLHttpRequest();
 
 	xhr.open('GET', 'api/travel', true);
@@ -218,6 +219,13 @@ function displayAllTravel(e) {
 		if (xhr.readyState === 4 && xhr.status < 400) {
 			var obj = JSON.parse(xhr.responseText);
 			obj.forEach(function(val, index, array) {
+				 total = obj.reduce((dis, trav) => {
+					if(trav.distance){
+						dis += trav.distance;
+					}
+					return dis;
+				}, 0);
+				 console.log(total)
 				let header = document.createElement('h3');
 				let ul = document.createElement('ul');
 				let li = document.createElement('li');
@@ -242,7 +250,27 @@ function displayAllTravel(e) {
 					clearPage();
 					getTravel(val.id);	
 				});
+				
+				
+				
 			});
+			let form = document.createElement('form');
+			form.name = 'totalDistanceTraveled';
+			form.id = 'totalDistanceTraveled';
+			travel.appendChild(form);
+			
+			let input = document.createElement('input');
+			input.type = 'submit';
+			input.name = 'submit';
+			input.value = 'Total Distance Traveled';
+			form.appendChild(input);
+			
+			document.getElementById('totalDistanceTraveled').addEventListener('submit', function(e){
+				e.preventDefault();
+				clearPage();
+				totalDistanceTraveled(total);
+			});
+			
 		}
 		if (xhr.readyState === 4 && xhr.status >= 400) {
 			header2.textContent = 'Film Not Found';
@@ -309,3 +337,13 @@ function updateTravel(travel){
 	xhr.send(JSON.stringify(newTravel));
 	displayTravel(newTravel);
 }
+
+function totalDistanceTraveled(travel){
+	console.log("TRAEL", travel);
+	let travelData = document.getElementById('travelData');
+	let h2 = document.createElement('h2');
+	h2.textContent = 'I have traveled ' + travel + ' miles in total';
+	travelData.append(h2);
+	
+}
+
