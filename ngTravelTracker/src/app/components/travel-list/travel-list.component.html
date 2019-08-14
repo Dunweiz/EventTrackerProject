@@ -1,0 +1,66 @@
+<h1> Travel Journal <span [ngClass]="travelCountColor()" class="badge"> {{ getTotalDistanceTraveled() }} </span></h1>
+<div >
+  <table class="table table-hover table-bordered" *ngIf="selected === null">
+    <thead class="thead-dark">
+      <tr *ngIf="!selected">
+        <th> Location </th>
+        <th> Distance </th>
+        <th> Description </th>
+        <th> Vehicle </th>
+        <th> Delete </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let travel of travels" >
+        <td (click)="showTravel(travel)">{{ travel.name }}</td>
+        <td>
+          {{travel.distance}}
+        </td>
+        <td>{{ travel.desc }}</td>
+        <td [ngClass]="travelVehicle(travel.vehicle)">{{ travel.vehicle }}</td>
+        <td>
+          <button (click)="deleteTravel(travel.id)" class="btn btn-danger"> X </button>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+<hr>
+<!-- Show Completed: <input type="checkbox" name="incomplete" [(ngModel)]="showComplete">
+<br> -->
+
+
+<form *ngIf="selected === null">
+<input type="text" name="name" [(ngModel)]="newTravel.name">
+<input type="submit" value="Add New Travel" (click)="addTravel()">
+</form>
+<div id="detailView" *ngIf="selected !== null && editTravel === null">
+  Id: {{ selected.id }} <br>
+  Destination: {{ selected.name }} <br>
+  Description: {{ selected.desc }} <br>
+  Distance Traveled: {{ selected.distance }} <br>
+  Vehicle Used: {{ selected.vehicle }} <br>
+  <button (click)="selected = null;"> Back </button>
+  <button (click)="setEditTravel()"> Edit </button>
+</div>
+
+  <form id="editTravel" *ngIf="editTravel">
+    Location Name: <input type="text" name="name" [(ngModel)]="editTravel.name"><br>
+    Description: <input type="text" name="description" [(ngModel)]="editTravel.desc"><br>
+    Distance in Miles: <input type="number" name="distance" [(ngModel)]="editTravel.distance"><br>
+      <select name="vehicle" [(ngModel)]="editTravel.vehicle">
+        <option value="Honda Civic">Honda Civic</option>
+        <option value="Honda Accord">Honda Accord</option>
+        <option value="Toyota Camry">Toyota Camry</option>
+        <option value="Ford Mustang">Ford Mustang</option>
+        <option value="Ford F150">Ford F150</option>
+        <option value="Jeep Wrangler">Jeep Wrangler</option>
+        <option value="BMW X5">BMW X5</option>
+        <option value="Mercedes A-Class">Mercedes A-Class</option>
+        <option value="Chrysler 300">Chrysler 300</option>
+        <option value="Chevrolet Silverado">Chevrolet Silverado</option>
+        </select>
+    <button (click)=" updateTravel(editTravel); selected = null;">Save</button>
+    <button (click)=" selected = null; editTravel = null;">Cancel</button>
+    <!-- <input type="submit" value="Cancel" [(ngModel)]=""> -->
+  </form>

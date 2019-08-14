@@ -1,0 +1,66 @@
+.red {
+  background-color : red;
+  color: white;
+}
+.yellow {
+  background-color: yellow;
+  color: black;
+}
+.green {
+  background-color: green;
+  color: white;
+}
+.civic {
+  color: white;
+  background-color: #37474F;
+}
+.camry {
+  color: white;
+  background-color:  #C62828;
+}
+.mustang {
+  color: black;
+  background-color: #64FFDA;
+}
+.f150 {
+  color: white;
+  background-color: #536DFE;
+}
+.accord {
+  color: white;
+  background-color: #69F0AE;
+}
+.wrangler {
+  color: white;
+  background-color: #7B1FA2;
+}
+.X5 {
+  color: white;
+  background-color: #03A9F4;
+}
+.A-Class {
+  color: black;
+  background-color: #EEFF41;
+}
+.C300 {
+  color:black;
+  background-color: #B2FF59;
+}
+.silverado {
+  color:white;
+  background-color: #FF6E40;
+}
+table {
+  background-color: white;
+}
+form {
+  background-color: white;
+
+}
+div {
+  background-color: white;
+
+}
+h1 {
+  color: rgb(255, 255, 255);
+}
