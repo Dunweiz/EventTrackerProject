@@ -50,16 +50,12 @@
   color:white;
   background-color: #FF6E40;
 }
+.tableBackground {
+  background: white;
+  opacity: .7;
+}
 table {
-  background-color: white;
-}
-form {
-  background-color: white;
-
-}
-div {
-  background-color: white;
-
+  opacity: 1;
 }
 h1 {
   color: rgb(255, 255, 255);
